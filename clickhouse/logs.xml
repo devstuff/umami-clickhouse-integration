@@ -1,0 +1,4 @@
+<clickhouse>
+  <!-- enable verbose logging to console -->
+  <!-- <logger><console>1</console></logger> -->
+</clickhouse>

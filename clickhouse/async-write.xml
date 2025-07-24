@@ -1,0 +1,23 @@
+<clickhouse>
+  <profiles>
+    <default>
+
+      <!-- https://clickhouse.com/blog/asynchronous-data-inserts-in-clickhouse -->
+
+      <!-- enable async inserts -->
+      <async_insert>1</async_insert>
+
+      <!-- do not make the client wait for the insert to complete -->
+      <wait_for_async_insert>0</wait_for_async_insert>
+
+      <!-- write in memory records to disk every 5 seconds -->
+      <async_insert_busy_timeout_ms>5000</async_insert_busy_timeout_ms>
+
+      <!-- optimize record insertion speeds at the cost of reliability -->
+      <async_insert_deduplicate>0</async_insert_deduplicate>
+      <insert_deduplicate>0</insert_deduplicate>
+      <optimize_on_insert>0</optimize_on_insert>
+
+    </default>
+  </profiles>
+</clickhouse>

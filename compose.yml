@@ -1,0 +1,56 @@
+services:
+  umami:
+    image: docker.umami.is/umami-software/umami:postgresql-v2.18.1
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgresql://umami:umami@postgresql:5432/umami
+      DATABASE_TYPE: postgresql
+      CLICKHOUSE_URL: http://umami:umami@clickhouse:8123/umami
+      APP_SECRET: replace-me-with-a-random-string
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+
+  postgresql:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
+    volumes:
+      - umami-postgresql-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  clickhouse:
+    build:
+      context: clickhouse
+    ports:
+      - '8123:8123'
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    environment:
+      CLICKHOUSE_DB: umami
+      CLICKHOUSE_USER: umami
+      CLICKHOUSE_PASSWORD: umami
+
+    volumes:
+      - umami-clickhouse-data:/var/lib/clickhouse
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -O - 127.0.0.1:8123']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  umami-postgresql-data:
+  umami-clickhouse-data:
