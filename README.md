@@ -4,7 +4,7 @@
 
 My company needed a privacy-focused and self hosted website analytics platform which could handle upwards of 10M views per day.  Our solution inolves Umami and Clickhouse.
 
-Umami (https://umami.is/) is a self-hosted website analytics tool that allows you to control your data and adjust privacy settings. ClickHouse (https://clickhouse.com/) is a columnar database designed for high-performance reporting on large volumes of data.  
+[Umami](https://umami.is/) is a self-hosted website analytics tool that allows you to control your data and adjust privacy settings. [ClickHouse](https://clickhouse.com/) is a columnar database designed for high-performance reporting on large volumes of data.  
 
 ### The Problem
 
@@ -16,7 +16,6 @@ The typical Umami setup using PostgreSQL or MySQL can encounter significant perf
 
 ![diagram](./images/communication-paths.svg)
 
-
 ClickHouse offers a robust solution for analytics workloads, capable of efficiently handling large volumes of data. Our solution is to use ClickHouse as the backend for Umami.
 
 Internally, Umami supports ClickHouse, but at the time of writing this document, there is no documentation about how to use these two together. There are a number of challenges we have faced. This document is not the only solution, but it has worked for us without introducing any significant complexity or maintenance costs.
@@ -26,6 +25,7 @@ Whether you're looking to scale Umami for a high-traffic website or searching fo
 For an alternative perspective, see [Another document about Umami and Clickhouse](https://boehs.org/node/umami-clickhouse).
 
 ### Key Topics:
+
 - **Prerequisites**: Tools and knowledge required to start.
 - **Setting Up ClickHouse with Umami**: Step-by-step guide to setup.
 - **Enabling Async Inserts in ClickHouse**: Configuration details to optimize performance.
@@ -37,6 +37,7 @@ This documentation aims to offer a comprehensive yet approachable guide to integ
 ## Prerequisites
 
 Before starting, ensure you have the following:
+
 - Docker and Docker Compose installed
 - Access to clone the GitHub repository
 - Basic knowledge of Docker and SQL
